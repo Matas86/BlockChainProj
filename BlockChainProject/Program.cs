@@ -10,10 +10,11 @@ namespace BlockChainProject
     {
         const long MUST_BE_LESS_THAN = 100;
 
-        long hash(string str)
+        string hash(string str)
         {
             long hash = 5381;
             //int c;
+            string ats = "";
 
             foreach (var item in str)
             {
@@ -21,20 +22,24 @@ namespace BlockChainProject
                 hash += (hash << 3);
                 hash = ((hash >> 11) + hash) + item;
                 hash += (hash << 33);
+                ats += hash;
                 hash = ((hash << 4) + hash) + item;
                 hash ^= (hash >> 5);
                 hash = ((hash << 7) + hash) + item;
                 hash += (hash << 8);
                 hash ^= (hash >> 9);
+                ats += hash;
                 hash += (hash << 5);
                 hash += (hash << 1);
                 hash ^= (hash >> 5);
                 hash += (hash << 4);
+                ats += hash;
 
             }
+            //6784910539110358513
+            //3869334915974166604
 
-
-            return (hash);
+            return (ats);
         }
 
         public List<string> ReadFile(string file)
@@ -61,7 +66,7 @@ namespace BlockChainProject
             return text;
         }
 
-        public int CheckCollision(List<long> hashlines)
+        public int CheckCollision(List<string> hashlines)
         {
             int counter = 0;
 
@@ -88,23 +93,20 @@ namespace BlockChainProject
             }
 
             List<string> lines = ReadFile(filename);
-            List<long> hashlines = new List<long>();
+            List<string> hashlines = new List<string>();
             StreamWriter sw = new StreamWriter("ats.txt");
             foreach (var item in lines)
             {
-                if (hash(item) < 0)
-                {
-                    hashlines.Add(Math.Abs(hash(item)));
-                }
-                else
-                {
-                    hashlines.Add(hash(item));
-                }
-                sw.WriteLine(Math.Abs(hash(item)).ToString());
-                
+
+                string tempstr = hash(item);
+                tempstr = tempstr.Replace('-', '0');
+                hashlines.Add(tempstr);
+
+                sw.WriteLine(tempstr);
+
             }
             int collisioncount = CheckCollision(hashlines);
-            Console.WriteLine(hashlines[0]);
+            //Console.WriteLine(hashlines[0]);
             Console.WriteLine("Collision = " + collisioncount.ToString());
 
         }
