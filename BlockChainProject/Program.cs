@@ -8,7 +8,7 @@ namespace BlockChainProject
 {
     public class Program
     {
-        const int MUST_BE_LESS_THAN = 100000000;
+        const long MUST_BE_LESS_THAN = 100;
 
         long hash(string str)
         {
@@ -19,12 +19,22 @@ namespace BlockChainProject
             {
                 hash = ((hash << 5) + hash) + item;
                 hash += (hash << 3);
-                hash ^= (hash >> 11);
-                hash += (hash << 15);
+                hash = ((hash >> 11) + hash) + item;
+                hash += (hash << 33);
+                hash = ((hash << 4) + hash) + item;
+                hash ^= (hash >> 5);
+                hash = ((hash << 7) + hash) + item;
+                hash += (hash << 8);
+                hash ^= (hash >> 9);
+                hash += (hash << 5);
+                hash += (hash << 1);
+                hash ^= (hash >> 5);
+                hash += (hash << 4);
+
             }
 
 
-            return (hash/MUST_BE_LESS_THAN);
+            return (hash);
         }
 
         public List<string> ReadFile(string file)
@@ -79,6 +89,7 @@ namespace BlockChainProject
 
             List<string> lines = ReadFile(filename);
             List<long> hashlines = new List<long>();
+            StreamWriter sw = new StreamWriter("ats.txt");
             foreach (var item in lines)
             {
                 if (hash(item) < 0)
@@ -89,9 +100,11 @@ namespace BlockChainProject
                 {
                     hashlines.Add(hash(item));
                 }
+                sw.WriteLine(Math.Abs(hash(item)).ToString());
                 
             }
             int collisioncount = CheckCollision(hashlines);
+            Console.WriteLine(hashlines[0]);
             Console.WriteLine("Collision = " + collisioncount.ToString());
 
         }
