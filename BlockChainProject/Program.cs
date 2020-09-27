@@ -8,25 +8,7 @@ namespace BlockChainProject
 {
     public class Program
     {
-        //const int MUST_BE_LESS_THAN = 100000000;
-
-        /*public byte[] GetStableHash(string s)
-        {
-            uint hash = 0;
-            
-            foreach (byte b in System.Text.Encoding.Unicode.GetBytes(s))
-            {
-                hash += b;
-                //hash += (hash << 10);
-                //hash ^= (hash >> 6);
-            }
-            
-            //hash += (hash << 3);
-            //hash ^= (hash >> 11);
-            //hash += (hash << 15);
-       
-            return (hash);
-        }*/
+        const int MUST_BE_LESS_THAN = 100000000;
 
         long hash(string str)
         {
@@ -36,10 +18,13 @@ namespace BlockChainProject
             foreach (var item in str)
             {
                 hash = ((hash << 5) + hash) + item;
+                hash += (hash << 3);
+                hash ^= (hash >> 11);
+                hash += (hash << 15);
             }
 
 
-            return hash;
+            return (hash/MUST_BE_LESS_THAN);
         }
 
         public List<string> ReadFile(string file)
@@ -65,6 +50,23 @@ namespace BlockChainProject
             }
             return text;
         }
+
+        public int CheckCollision(List<long> hashlines)
+        {
+            int counter = 0;
+
+            for (int i = 0; i < hashlines.Count; i++)
+            {
+                for (int j = i; j < hashlines.Count; j++)
+                {
+                    if (hashlines[i] == hashlines[j])
+                    {
+                        counter++;
+                    }
+                }
+            }
+            return counter - hashlines.Count;
+        }
         public void Hashuok(string filename)
         {
             string num = "asd";
@@ -76,25 +78,27 @@ namespace BlockChainProject
             }
 
             List<string> lines = ReadFile(filename);
-            Console.WriteLine(lines.Count.ToString());
             List<long> hashlines = new List<long>();
-            int counter = 0;
             foreach (var item in lines)
             {
-                hashlines.Add(hash(item));
-                Console.WriteLine(hashlines[counter].ToString());
-                counter++;
+                if (hash(item) < 0)
+                {
+                    hashlines.Add(Math.Abs(hash(item)));
+                }
+                else
+                {
+                    hashlines.Add(hash(item));
+                }
+                
             }
-
-            //int tempas = GetStableHash(num);
-            //var str = System.Text.Encoding.Default.GetString(temp); //atkeicia atgal is byte i string
-            //Console.WriteLine(test.ToString());
+            int collisioncount = CheckCollision(hashlines);
+            Console.WriteLine("Collision = " + collisioncount.ToString());
 
         }
         static void Main(string[] args)
         {
             Program start = new Program();
-            Console.WriteLine(args[0]);
+            Console.WriteLine("Naudojamas failas : " + args[0]);
             start.Hashuok(args[0]);
         }
 
