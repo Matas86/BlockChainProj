@@ -8,6 +8,8 @@ namespace BlockChainProject
 {
     public class Program
     {
+        
+        
         const long MUST_BE_LESS_THAN = 100;
 
         string hash(string str)
@@ -100,9 +102,9 @@ namespace BlockChainProject
 
                 string tempstr = hash(item);
                 tempstr = tempstr.Replace('-', '0');
-                hashlines.Add(tempstr);
+                hashlines.Add(tempstr.GetHashCode().ToString());
 
-                sw.WriteLine(tempstr);
+                sw.WriteLine(tempstr.GetHashCode().ToString());
 
             }
             int collisioncount = CheckCollision(hashlines);
