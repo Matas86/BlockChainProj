@@ -1,0 +1,13 @@
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\bin\Debug\netcoreapp3.1\BlockChainProject.exe
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\bin\Debug\netcoreapp3.1\BlockChainProject.deps.json
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\bin\Debug\netcoreapp3.1\BlockChainProject.runtimeconfig.json
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\bin\Debug\netcoreapp3.1\BlockChainProject.runtimeconfig.dev.json
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\bin\Debug\netcoreapp3.1\BlockChainProject.dll
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\bin\Debug\netcoreapp3.1\BlockChainProject.pdb
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\obj\Debug\netcoreapp3.1\BlockChainProject.csprojAssemblyReference.cache
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\obj\Debug\netcoreapp3.1\BlockChainProject.AssemblyInfoInputs.cache
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\obj\Debug\netcoreapp3.1\BlockChainProject.AssemblyInfo.cs
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\obj\Debug\netcoreapp3.1\BlockChainProject.csproj.CoreCompileInputs.cache
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\obj\Debug\netcoreapp3.1\BlockChainProject.dll
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\obj\Debug\netcoreapp3.1\BlockChainProject.pdb
+D:\Nesąmonės\Mokslai unikas\BlockChain\BlockChainProject\BlockChainProject\obj\Debug\netcoreapp3.1\BlockChainProject.genruntimeconfig.cache
