@@ -8,42 +8,6 @@ namespace BlockChainProject
 {
     public class Program
     {
-        
-        
-        const long MUST_BE_LESS_THAN = 100;
-
-        string hash(string str)
-        {
-            long hash = 5381;
-            //int c;
-            string ats = "";
-
-            foreach (var item in str)
-            {
-                hash = ((hash << 5) + hash) + item;
-                hash += (hash << 3);
-                hash = ((hash >> 11) + hash) + item;
-                hash += (hash << 33);
-                ats += hash;
-                hash = ((hash << 4) + hash) + item;
-                hash ^= (hash >> 5);
-                hash = ((hash << 7) + hash) + item;
-                hash += (hash << 8);
-                hash ^= (hash >> 9);
-                ats += hash;
-                hash += (hash << 5);
-                hash += (hash << 1);
-                hash ^= (hash >> 5);
-                hash += (hash << 4);
-                ats += hash;
-
-            }
-            //6784910539110358513
-            //3869334915974166604
-
-            return (ats);
-        }
-
         public List<string> ReadFile(string file)
         {
             List<string> text = new List<string>();
@@ -86,30 +50,21 @@ namespace BlockChainProject
         }
         public void Hashuok(string filename)
         {
-            string num = "asd";
-            byte[] temp = Encoding.UTF8.GetBytes(num); //pakeicia i byte array
-            string hashString = "";
-            foreach (byte x in temp)
+            string temp = "abc";
+
+            byte[] abc = Encoding.UTF8.GetBytes(temp);
+            string finalstring = "";
+            foreach (var item in abc)
             {
-                hashString += String.Format("{0:x2}", x);
+                finalstring += Convert.ToString(item, 2).PadLeft(8, '0');
             }
 
-            List<string> lines = ReadFile(filename);
-            List<string> hashlines = new List<string>();
-            StreamWriter sw = new StreamWriter("ats.txt");
-            foreach (var item in lines)
-            {
+            //string yourByteString = Convert.ToString(abc[0], 2).PadLeft(8, '0');
 
-                string tempstr = hash(item);
-                tempstr = tempstr.Replace('-', '0');
-                hashlines.Add(tempstr.GetHashCode().ToString());
-
-                sw.WriteLine(tempstr.GetHashCode().ToString());
-
-            }
-            int collisioncount = CheckCollision(hashlines);
-            //Console.WriteLine(hashlines[0]);
-            Console.WriteLine("Collision = " + collisioncount.ToString());
+ 
+            Console.WriteLine(finalstring);
+           // int collisioncount = CheckCollision(hashlines);
+            //Console.WriteLine("Collision = " + collisioncount.ToString());
 
         }
         static void Main(string[] args)
