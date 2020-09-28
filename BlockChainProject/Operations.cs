@@ -58,13 +58,13 @@ namespace BlockChainProject
             return a;
         }
 
-        string SHR(string a, int amount)
+        public string SHR(string a, int amount)
         {
             StringBuilder strB = new StringBuilder(a);
 
             strB.Append(strB[strB.Length-1]);
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < amount; i++)
             {
                 for (int j = 0; j < strB.Length - 1; j++)
                 {
@@ -73,9 +73,9 @@ namespace BlockChainProject
                 strB[0] = '0';
             }
 
-            strB.Remove(strB.Length - 2, 2);
+            strB.Remove(strB.Length - 1, 1);
 
-            return a;
+            return strB.ToString();
         }
     }
 }

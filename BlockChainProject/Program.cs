@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using BlockChainProject;
 
 namespace BlockChainProject
 {
@@ -33,6 +34,7 @@ namespace BlockChainProject
         }
         public void Hashuok()
         {
+            Operations testavimui = new Operations();
             string temp = "abc";
             byte[] test = Encoding.UTF8.GetBytes(temp);
             string yourByteString = "";
@@ -43,22 +45,9 @@ namespace BlockChainProject
             }
             StringBuilder strB = new StringBuilder(yourByteString);
             Console.WriteLine(yourByteString);
-            
-            strB.Append(strB.Length-1);
-            Console.WriteLine(strB.Length);
-            for (int i = 0; i < 6; i++)
-            {
-
-                for (int j = 0; j < strB.Length-1; j++)
-                {
-                    strB[strB.Length-1 - j] = strB[strB.Length - 2 - j];
-                    Console.WriteLine(strB.ToString());
-                }
-                strB[0] = '0';
-
-            }
-            strB.Remove(strB.Length-2, 2);
-            Console.WriteLine(strB.ToString());
+            yourByteString = testavimui.SHR(yourByteString, 3);
+            Console.WriteLine(yourByteString);
+           
 
         }
         static void Main(string[] args)
