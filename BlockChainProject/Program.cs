@@ -31,47 +31,42 @@ namespace BlockChainProject
             }
             return text;
         }
-
-        public int CheckCollision(List<string> hashlines)
-        {
-            int counter = 0;
-
-            for (int i = 0; i < hashlines.Count; i++)
-            {
-                for (int j = i; j < hashlines.Count; j++)
-                {
-                    if (hashlines[i] == hashlines[j])
-                    {
-                        counter++;
-                    }
-                }
-            }
-            return counter - hashlines.Count;
-        }
-        public void Hashuok(string filename)
+        public void Hashuok()
         {
             string temp = "abc";
-
-            byte[] abc = Encoding.UTF8.GetBytes(temp);
-            string finalstring = "";
-            foreach (var item in abc)
+            byte[] test = Encoding.UTF8.GetBytes(temp);
+            string yourByteString = "";
+            foreach (var item in test)
             {
-                finalstring += Convert.ToString(item, 2).PadLeft(8, '0');
+                yourByteString += Convert.ToString(item, 2).PadLeft(8, '0');
+                //Console.WriteLine(yourByteString);
             }
+            StringBuilder strB = new StringBuilder(yourByteString);
+            Console.WriteLine(yourByteString);
+            
+            strB.Append(strB.Length-1);
+            Console.WriteLine(strB.Length);
+            for (int i = 0; i < 6; i++)
+            {
 
-            //string yourByteString = Convert.ToString(abc[0], 2).PadLeft(8, '0');
+                for (int j = 0; j < strB.Length-1; j++)
+                {
+                    strB[strB.Length-1 - j] = strB[strB.Length - 2 - j];
+                    Console.WriteLine(strB.ToString());
+                }
+                strB[0] = '0';
 
- 
-            Console.WriteLine(finalstring);
-           // int collisioncount = CheckCollision(hashlines);
-            //Console.WriteLine("Collision = " + collisioncount.ToString());
+            }
+            strB.Remove(strB.Length-2, 2);
+            Console.WriteLine(strB.ToString());
 
         }
         static void Main(string[] args)
         {
             Program start = new Program();
-            Console.WriteLine("Naudojamas failas : " + args[0]);
-            start.Hashuok(args[0]);
+            //Console.WriteLine("Naudojamas failas 1 : " + args[0]);
+            //Console.WriteLine("Naudojamas failas 2 : " + args[0]);
+            start.Hashuok();
         }
 
 
