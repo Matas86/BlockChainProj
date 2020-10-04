@@ -58,6 +58,20 @@ namespace BlockChainProject
             Console.WriteLine(ats);
             */
 
+            //ROTR test
+            /*string temp = "abc";
+            byte[] test = Encoding.UTF8.GetBytes(temp);
+            string yourByteString = "";
+            foreach (var item in test)
+            {
+                yourByteString += Convert.ToString(item, 2).PadLeft(8, '0');
+                //Console.WriteLine(yourByteString);
+            }
+            StringBuilder strB = new StringBuilder(yourByteString);
+            Console.WriteLine(yourByteString);
+            yourByteString = testavimui.ROTR(yourByteString, 3);
+            Console.WriteLine(yourByteString); 
+            */
 
         }
         static void Main(string[] args)

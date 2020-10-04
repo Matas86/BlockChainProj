@@ -70,10 +70,23 @@ namespace BlockChainProject
             return c;
         }
 
-        string ROTR(string a, int amount)
+        public string ROTR(string a, int amount)
         {
+            StringBuilder strB = new StringBuilder(a);
 
-            return a;
+            for (int i = 0; i < amount; i++)
+            {
+                strB.Append(strB[strB.Length - 1]);
+                for (int j = 0; j < strB.Length - 1; j++)
+                {
+                    strB[strB.Length - 1 - j] = strB[strB.Length - 2 - j];
+                }
+                strB[0] = strB[strB.Length - 1];
+                strB.Remove(strB.Length - 1, 1);
+            }
+
+            return strB.ToString();
+
         }
 
         public string SHR(string a, int amount)
