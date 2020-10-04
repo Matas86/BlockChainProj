@@ -2,6 +2,7 @@
 obj/
 bin/
 .vs/
+*.lnk
 *_i.c
 *_p.c
 *_h.h
