@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\Matisimo\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Matisimo\\.nuget\\packages"
-    ]
-  }
-}
