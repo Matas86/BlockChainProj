@@ -9,6 +9,7 @@ namespace BlockChainProject
 {
     public class Program
     {
+        Operations op = new Operations();
         public List<string> ReadFile(string file)
         {
             List<string> text = new List<string>();
@@ -34,9 +35,9 @@ namespace BlockChainProject
         }
         public void Hashuok()
         {
-            Operations op = new Operations();
+            
 
-            string test1 = "lietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuva";
+            string test1 = "";
             string test2 = "Lietuva";
             string test3 = "lietuva";
 
@@ -51,22 +52,32 @@ namespace BlockChainProject
             string test1ats = op.Hash(test1parts);
             string test2ats = op.Hash(test2parts);
             string test3ats = op.Hash(test3parts);
-            test1ats = op.BinaryStringToHexString(test1ats);
-            Console.WriteLine(test1ats);
 
-            test2ats = op.BinaryStringToHexString(test2ats);
-            Console.WriteLine(test2ats);
+            Console.WriteLine(test1ats + "\n" + test2ats + "\n" + test3ats);
 
-            test3ats = op.BinaryStringToHexString(test3ats);
-            Console.WriteLine(test3ats);
+            List<double> similarities = new List<double>();
+            similarities.Add(op.CheckSimilarity(test2ats, test3ats));
 
+
+        }
+
+        public void Hashuok(string file)
+        {
+            List<string> lines = ReadFile(file);
+            List<string> hashedlines = new List<string>();
+            foreach (var item in lines)
+            {
+                List<string> templines = op.Split(item);
+                string temp = op.Hash(templines);
+                hashedlines.Add(temp);
+
+            }
 
         }
         static void Main(string[] args)
         {
             Program start = new Program();
-            //Console.WriteLine("Naudojamas failas 1 : " + args[0]);
-            //Console.WriteLine("Naudojamas failas 2 : " + args[0]);
+            //start.Hashuok("konstitucija.txt");
             start.Hashuok();
         }
 
