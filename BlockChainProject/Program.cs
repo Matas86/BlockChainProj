@@ -36,7 +36,7 @@ namespace BlockChainProject
         {
             Operations op = new Operations();
 
-            string test1 = "lietuva";
+            string test1 = "lietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuva";
             string test2 = "Lietuva";
 
             test1 = op.ConvertToBytes(test1);
@@ -44,6 +44,9 @@ namespace BlockChainProject
 
             List<string> test1parts = op.Split(test1);
             List<string> test2parts = op.Split(test2);
+
+            string test1ats = op.Hash(test1parts);
+            Console.WriteLine(test1ats);
 
 
         }
