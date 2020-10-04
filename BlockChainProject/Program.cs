@@ -38,12 +38,15 @@ namespace BlockChainProject
 
             string test1 = "lietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuvalietuva";
             string test2 = "Lietuva";
+            string test3 = "lietuva";
 
             test1 = op.ConvertToBytes(test1);
             test2 = op.ConvertToBytes(test2);
+            test3 = op.ConvertToBytes(test3);
 
             List<string> test1parts = op.Split(test1);
             List<string> test2parts = op.Split(test2);
+            List<string> test3parts = op.Split(test3);
 
             string test1ats = op.Hash(test1parts);
             Console.WriteLine(test1ats);

@@ -62,8 +62,6 @@ namespace BlockChainProject
 
         }
 
-       
-
         public string ConvertToBytes(string a)
         {
             byte[] test = Encoding.UTF8.GetBytes(a);
@@ -141,10 +139,14 @@ namespace BlockChainProject
             string ats = "";
             for (int i = 0; i < a.Count; i++)
             {
+                a[i] = XOR(a[i], ConvertConstantc1());
                 a[i] = SHR(a[i], 33);
                 a[i] = ROTR(a[i], 56);
+                a[i] = XOR(a[i], ConvertConstantc2());
                 a[i] = SHR(a[i], 13);
                 a[i] = ROTR(a[i], 42);
+                a[i] = XOR(a[i], ConvertConstantc3());
+
             }
             if (a.Count > 1)
             {
