@@ -70,15 +70,42 @@ namespace BlockChainProject
                 List<string> templines = op.Split(item);
                 string temp = op.Hash(templines);
                 hashedlines.Add(temp);
-
+                if (temp == "") Console.WriteLine(item);
             }
+
+            
+            List<double> similarities = new List<double>();
+            int count = 0;
+            for (int i = 0; i < hashedlines.Count-1; i++)
+            {
+                for (int j = i+1; j < hashedlines.Count; j++)
+                {
+                    //Console.WriteLine(lines[i] + " " + lines[j]);
+                    similarities.Add(op.CheckSimilarity(hashedlines[i], hashedlines[j]));
+                    count++;
+                }
+            }
+            double sum = 0;
+            double min = 100;
+            double max = 0;
+            for (int i = 0; i < similarities.Count; i++)
+            {
+                sum += similarities[i];
+                if (min > similarities[i]) min = similarities[i];
+                if (max < similarities[i]) max = similarities[i];
+            }
+
+            Console.WriteLine("Didziausias panasumas: " + Math.Round(max, 2) + "%");
+            Console.WriteLine("Maziausias panasumas: " + Math.Round(min, 2) + "%");
+            Console.WriteLine("Vidutiniskai hashai yra panasus: " + Math.Round(sum/count, 2) + "%");
+
 
         }
         static void Main(string[] args)
         {
             Program start = new Program();
-            //start.Hashuok("konstitucija.txt");
-            start.Hashuok();
+            start.Hashuok("konstitucija.txt");
+            //start.Hashuok();
         }
 
 

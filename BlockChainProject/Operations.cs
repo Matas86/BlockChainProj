@@ -95,7 +95,6 @@ namespace BlockChainProject
         public double CheckSimilarity(string a, string b)
         {
             double sum = 0;
-
             for (int i = 0; i < a.Length; i++)
             {
                 if (a[i] == b[i])
@@ -120,7 +119,7 @@ namespace BlockChainProject
                 }
             }
 
-            if (a.Length < 64)
+            if (a.Length < 64 && a.Length >0)
             {
                 StringBuilder strB = new StringBuilder(a);
                 for (int j = 0; j < 64 - a.Length; j++)
