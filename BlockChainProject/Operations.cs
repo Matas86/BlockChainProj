@@ -16,7 +16,12 @@ namespace BlockChainProject
         {
             long c1b = BitConverter.DoubleToInt64Bits(c1);
             string tempas = ConvertToBytes(c1b.ToString());
+            Console.WriteLine(tempas.Length);
             tempas = tempas.Remove(64, tempas.Length - 64);
+            for (int i = 0; i < 5; i++)
+            {
+                tempas += tempas;
+            }
             return tempas;
         }
 
@@ -25,6 +30,10 @@ namespace BlockChainProject
             long c2b = BitConverter.DoubleToInt64Bits(c2);
             string tempas = ConvertToBytes(c2b.ToString());
             tempas = tempas.Remove(64, tempas.Length - 64);
+            for (int i = 0; i < 5; i++)
+            {
+                tempas += tempas;
+            }
             return tempas;
         }
 
@@ -33,6 +42,10 @@ namespace BlockChainProject
             long c2b = BitConverter.DoubleToInt64Bits(c3);
             string tempas = ConvertToBytes(c2b.ToString());
             tempas = tempas.Remove(64, tempas.Length - 64);
+            for (int i = 0; i < 5; i++)
+            {
+                tempas += tempas;
+            }
             return tempas;
         }
 
@@ -44,24 +57,54 @@ namespace BlockChainProject
         {
             List<string> ats = new List<string>();
             int length = a.Length;
-            for (int i = 0; i < length/64 +1; i++)
+            for (int i = 0; i < length / 256 + 1; i++)
             {
-                if (a.Length >= 64)
+                if (a.Length >= 256)
                 {
-                    ats.Add(a.Substring(0, 64));
-                    a = a.Remove(i, 64);
+                    ats.Add(a.Substring(0, 256));
+                    a = a.Remove(i, 256);
                 }
                 else
                 {
-                    ats.Add(a.Substring(0, a.Length-1));
-                    
+                    StringBuilder strB = new StringBuilder(a);
+                    for (int j = 0; j < 256 - a.Length; j++)
+                    {
+                        strB.Append(0);
+                    }
+                    ats.Add(strB.ToString());
+
                 }
-                
+
             }
             return ats;
 
         }
 
+
+        public string BinaryStringToHexString(string binary)
+        {
+            if (string.IsNullOrEmpty(binary))
+                return binary;
+
+            StringBuilder result = new StringBuilder(binary.Length / 8 + 1);
+
+            // TODO: check all 1's or 0's... throw otherwise
+
+            int mod4Len = binary.Length % 8;
+            if (mod4Len != 0)
+            {
+                // pad to length multiple of 8
+                binary = binary.PadLeft(((binary.Length / 8) + 1) * 8, '0');
+            }
+
+            for (int i = 0; i < binary.Length; i += 8)
+            {
+                string eightBits = binary.Substring(i, 8);
+                result.AppendFormat("{0:X2}", Convert.ToByte(eightBits, 2));
+            }
+
+            return result.ToString();
+        }
         public string ConvertToBytes(string a)
         {
             byte[] test = Encoding.UTF8.GetBytes(a);
@@ -74,7 +117,7 @@ namespace BlockChainProject
         }
 
 
-       public string XOR(string a, string b) //sum of two bites - 1+0 = 1, 1+1 = 0, 0+1 = 1, 0+0 = 0.
+        public string XOR(string a, string b) //sum of two bites - 1+0 = 1, 1+1 = 0, 0+1 = 1, 0+0 = 0.
         {
             string c = "";
             for (int i = 0; i < a.Length; i++)
@@ -118,7 +161,7 @@ namespace BlockChainProject
         {
             StringBuilder strB = new StringBuilder(a);
 
-            strB.Append(strB[strB.Length-1]);
+            strB.Append(strB[strB.Length - 1]);
 
             for (int i = 0; i < amount; i++)
             {
@@ -148,7 +191,7 @@ namespace BlockChainProject
                 a[i] = XOR(a[i], ConvertConstantc3());
 
             }
-            if (a.Count > 1)
+            if (a.Count > 0)
             {
                 ats = a[0];
                 for (int i = 1; i < a.Count; i++)
@@ -164,7 +207,7 @@ namespace BlockChainProject
                         Console.WriteLine("ELSE");
                         Console.WriteLine(ats.Length + " " + a[i].Length);
                         StringBuilder strB = new StringBuilder(a[i]);
-                        for (int j = 0; j < 256-(a[i].Length); j++)
+                        for (int j = 0; j < 256 - (a[i].Length); j++)
                         {
                             strB.Append(0);
                         }
@@ -174,8 +217,12 @@ namespace BlockChainProject
                     }
                 }
             }
-            
-            
+            else
+            {
+                ats = a[0];
+            }
+
+
 
             return ats;
         }

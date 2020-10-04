@@ -49,7 +49,16 @@ namespace BlockChainProject
             List<string> test3parts = op.Split(test3);
 
             string test1ats = op.Hash(test1parts);
+            string test2ats = op.Hash(test2parts);
+            string test3ats = op.Hash(test3parts);
+            test1ats = op.BinaryStringToHexString(test1ats);
             Console.WriteLine(test1ats);
+
+            test2ats = op.BinaryStringToHexString(test2ats);
+            Console.WriteLine(test2ats);
+
+            test3ats = op.BinaryStringToHexString(test3ats);
+            Console.WriteLine(test3ats);
 
 
         }
