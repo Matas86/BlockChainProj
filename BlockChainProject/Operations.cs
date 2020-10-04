@@ -110,7 +110,7 @@ namespace BlockChainProject
             List<string> ats = new List<string>();
             int length = a.Length;
 
-            if (length > 64)
+            if (length >= 64)
             {
                 while (a.Length >=64)
                 {

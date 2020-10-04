@@ -33,33 +33,6 @@ namespace BlockChainProject
             }
             return text;
         }
-        public void Hashuok()
-        {
-            
-
-            string test1 = "";
-            string test2 = "Lietuva";
-            string test3 = "lietuva";
-
-            test1 = op.ConvertToBytes(test1);
-            test2 = op.ConvertToBytes(test2);
-            test3 = op.ConvertToBytes(test3);
-
-            List<string> test1parts = op.Split(test1);
-            List<string> test2parts = op.Split(test2);
-            List<string> test3parts = op.Split(test3);
-
-            string test1ats = op.Hash(test1parts);
-            string test2ats = op.Hash(test2parts);
-            string test3ats = op.Hash(test3parts);
-
-            Console.WriteLine(test1ats + "\n" + test2ats + "\n" + test3ats);
-
-            List<double> similarities = new List<double>();
-            similarities.Add(op.CheckSimilarity(test2ats, test3ats));
-
-
-        }
 
         public void Hashuok(string file)
         {
@@ -70,7 +43,6 @@ namespace BlockChainProject
                 List<string> templines = op.Split(item);
                 string temp = op.Hash(templines);
                 hashedlines.Add(temp);
-                if (temp == "") Console.WriteLine(item);
             }
 
             
@@ -80,7 +52,6 @@ namespace BlockChainProject
             {
                 for (int j = i+1; j < hashedlines.Count; j++)
                 {
-                    //Console.WriteLine(lines[i] + " " + lines[j]);
                     similarities.Add(op.CheckSimilarity(hashedlines[i], hashedlines[j]));
                     count++;
                 }
@@ -94,17 +65,25 @@ namespace BlockChainProject
                 if (min > similarities[i]) min = similarities[i];
                 if (max < similarities[i]) max = similarities[i];
             }
-
-            Console.WriteLine("Didziausias panasumas: " + Math.Round(max, 2) + "%");
-            Console.WriteLine("Maziausias panasumas: " + Math.Round(min, 2) + "%");
-            Console.WriteLine("Vidutiniskai hashai yra panasus: " + Math.Round(sum/count, 2) + "%");
+            Console.WriteLine("Naudojamas failas: " + file);
+            Console.WriteLine("Maziausias skirtumas: " + (100-Math.Round(max, 2)) + "%");
+            Console.WriteLine("Didziausias skirtumas: " + (100-Math.Round(min, 2)) + "%");
+            Console.WriteLine("Vidutiniskai hashai yra skirtingi: " + (100-Math.Round(sum/count, 2)) + "%");
 
 
         }
         static void Main(string[] args)
         {
             Program start = new Program();
-            start.Hashuok("konstitucija.txt");
+            if (args[0] != null)
+            {
+                start.Hashuok(args[0]);
+            }
+            else
+            {
+                string filename = Console.ReadLine();
+                start.Hashuok(filename);
+            }
             //start.Hashuok();
         }
 
