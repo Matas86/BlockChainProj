@@ -5,7 +5,7 @@
 - Ieiti i Projekto kataloga BlockChainProject per command promt
 - Ivesti i terminala komandas paeiliui:
 ```
-csc Program.cs
+csc Program.cs Operations.cs
 Program *tekstinio failo pavadinimas*
 ```
 
