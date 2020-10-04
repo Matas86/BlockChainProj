@@ -34,44 +34,17 @@ namespace BlockChainProject
         }
         public void Hashuok()
         {
-            Operations testavimui = new Operations();
-            //SHR test
-            /*Operations testavimui = new Operations();
-            string temp = "abc";
-            byte[] test = Encoding.UTF8.GetBytes(temp);
-            string yourByteString = "";
-            foreach (var item in test)
-            {
-                yourByteString += Convert.ToString(item, 2).PadLeft(8, '0');
-                //Console.WriteLine(yourByteString);
-            }
-            StringBuilder strB = new StringBuilder(yourByteString);
-            Console.WriteLine(yourByteString);
-            yourByteString = testavimui.SHR(yourByteString, 3);
-            Console.WriteLine(yourByteString);*/
+            Operations op = new Operations();
 
-            //XOR test
-            /*string temp1 = "000111000111";
-            string temp2 = "001111100011";
-            // ats = 001000100100
-            string ats = testavimui.XOR(temp1, temp2);
-            Console.WriteLine(ats);
-            */
+            string test1 = "lietuva";
+            string test2 = "Lietuva";
 
-            //ROTR test
-            /*string temp = "abc";
-            byte[] test = Encoding.UTF8.GetBytes(temp);
-            string yourByteString = "";
-            foreach (var item in test)
-            {
-                yourByteString += Convert.ToString(item, 2).PadLeft(8, '0');
-                //Console.WriteLine(yourByteString);
-            }
-            StringBuilder strB = new StringBuilder(yourByteString);
-            Console.WriteLine(yourByteString);
-            yourByteString = testavimui.ROTR(yourByteString, 3);
-            Console.WriteLine(yourByteString); 
-            */
+            test1 = op.ConvertToBytes(test1);
+            test2 = op.ConvertToBytes(test2);
+
+            List<string> test1parts = op.Split(test1);
+            List<string> test2parts = op.Split(test2);
+
 
         }
         static void Main(string[] args)
