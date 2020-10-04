@@ -35,6 +35,8 @@ namespace BlockChainProject
         public void Hashuok()
         {
             Operations testavimui = new Operations();
+            //SHR test
+            /*Operations testavimui = new Operations();
             string temp = "abc";
             byte[] test = Encoding.UTF8.GetBytes(temp);
             string yourByteString = "";
@@ -46,8 +48,16 @@ namespace BlockChainProject
             StringBuilder strB = new StringBuilder(yourByteString);
             Console.WriteLine(yourByteString);
             yourByteString = testavimui.SHR(yourByteString, 3);
-            Console.WriteLine(yourByteString);
-           
+            Console.WriteLine(yourByteString);*/
+
+            //XOR test
+            /*string temp1 = "000111000111";
+            string temp2 = "001111100011";
+            // ats = 001000100100
+            string ats = testavimui.XOR(temp1, temp2);
+            Console.WriteLine(ats);
+            */
+
 
         }
         static void Main(string[] args)

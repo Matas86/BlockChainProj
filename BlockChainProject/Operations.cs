@@ -46,10 +46,28 @@ namespace BlockChainProject
 
 
         //Basic operations
-        string XOR(string a, string b) //sum of two bites - 1+0 = 1, 1+1 = 0, 0+1 = 1, 0+0 = 0.
+       public string XOR(string a, string b) //sum of two bites - 1+0 = 1, 1+1 = 0, 0+1 = 1, 0+0 = 0.
         {
-
-            return a;
+            string c = "";
+            for (int i = 0; i < a.Length; i++)
+            {
+                if ((a[i] == '1' && b[i] == '0') || (a[i] == '0' && b[i] == '1'))
+                {
+                    Console.WriteLine("1. " +a[i] + " " + b[i]);
+                    c += "1";
+                }
+                else if (a[i] == '1' && b[i] == '1')
+                {
+                    Console.WriteLine("2. " + a[i] + " " + b[i]);
+                    c += "0";
+                }
+                else
+                {
+                    Console.WriteLine("3. " + a[i] + " " + b[i]);
+                    c += "0";
+                }
+            }
+            return c;
         }
 
         string ROTR(string a, int amount)
