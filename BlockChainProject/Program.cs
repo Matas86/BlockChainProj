@@ -33,43 +33,118 @@ namespace BlockChainProject
             }
             return text;
         }
+        public List<string> ReadFileToWords(string file)
+        {
+            List<string> text = new List<string>();
+            try
+            {
+                // Open the text file using a stream reader.
+                using (var sr = new StreamReader(file))
+                {
+                    // Read the stream as a string, and write the string to the console.
+                    while (!sr.EndOfStream)
+                    {
+                        string temp = sr.ReadLine();
+                        string[] mas = temp.Split(' ');
+                        text.Add(mas[0]);
+                        text.Add(mas[1]);
+
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+            return text;
+        }
 
         public void Hashuok(string file)
         {
-            Console.WriteLine("Pradedamas vieno failo hashavimas.");
-            List<string> lines = ReadFile(file);
-            List<string> hashedlines = new List<string>();
-            foreach (var item in lines)
-            {
-                List<string> templines = op.Split(item);
-                string temp = op.Hash(templines);
-                hashedlines.Add(temp);
-            }
 
-
-            List<double> similarities = new List<double>();
-            int count = 0;
-            for (int i = 0; i < hashedlines.Count - 1; i++)
+            Console.WriteLine("Ar nori lyginti 100 000 zodziu poras, ar hashuoti viena faila kiekviena eilute?");
+            Console.WriteLine("Jei norite lyginti zodziu poras vienam faile, pasirinkite 1.");
+            Console.WriteLine("Jei norite hashuoti kiekviena failo eilute, pasirinkite 2.");
+            string choice;
+            choice = Console.ReadLine();
+            if (choice == "1")
             {
-                for (int j = i + 1; j < hashedlines.Count; j++)
+                Console.WriteLine("Pradedamas vieno failo hashavimas.");
+                List<string> lines = ReadFileToWords(file);
+                List<string> hashedlines = new List<string>();
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                foreach (var item in lines)
                 {
-                    similarities.Add(op.CheckSimilarity(hashedlines[i], hashedlines[j]));
-                    count++;
+                    List<string> templines = op.Split(item);
+                    string temp = op.Hash(templines);
+                    hashedlines.Add(temp);
                 }
+                watch.Stop();
+                var elapsedMs = watch.ElapsedMilliseconds;
+                List<double> similarities = new List<double>();
+                int count = 0;
+                for (int i = 0; i < hashedlines.Count - 2; i+=2)
+                {
+                    similarities.Add(op.CheckSimilarity(hashedlines[i], hashedlines[i + 1]));
+                    count++;
+                    
+                }
+                double sum = 0;
+                double min = 100;
+                double max = 0;
+                for (int i = 0; i < similarities.Count; i++)
+                {
+                    sum += similarities[i];
+                    if (min > similarities[i]) min = similarities[i];
+                    if (max < similarities[i]) max = similarities[i];
+                }
+                Console.WriteLine("Naudojamas failas: " + file);
+                Console.WriteLine("Maziausias skirtumas: " + (100 - Math.Round(max, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas: " + (100 - Math.Round(min, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi: " + (100 - Math.Round(sum / count, 2)) + "%");
+                Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
-            double sum = 0;
-            double min = 100;
-            double max = 0;
-            for (int i = 0; i < similarities.Count; i++)
+            else if (choice == "2")
             {
-                sum += similarities[i];
-                if (min > similarities[i]) min = similarities[i];
-                if (max < similarities[i]) max = similarities[i];
+                Console.WriteLine("Pradedamas vieno failo hashavimas.");
+                List<string> lines = ReadFile(file);
+                List<string> hashedlines = new List<string>();
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                foreach (var item in lines)
+                {
+                    List<string> templines = op.Split(item);
+                    string temp = op.Hash(templines);
+                    hashedlines.Add(temp);
+                }
+                watch.Stop();
+                var elapsedMs = watch.ElapsedMilliseconds;
+                List<double> similarities = new List<double>();
+                int count = 0;
+                for (int i = 0; i < hashedlines.Count - 1; i++)
+                {
+                    for (int j = i + 1; j < hashedlines.Count; j++)
+                    {
+                        similarities.Add(op.CheckSimilarity(hashedlines[i], hashedlines[j]));
+                        count++;
+                    }
+                }
+                double sum = 0;
+                double min = 100;
+                double max = 0;
+                for (int i = 0; i < similarities.Count; i++)
+                {
+                    sum += similarities[i];
+                    if (min > similarities[i]) min = similarities[i];
+                    if (max < similarities[i]) max = similarities[i];
+                }
+                Console.WriteLine("Naudojamas failas: " + file);
+                Console.WriteLine("Maziausias skirtumas: " + (100 - Math.Round(max, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas: " + (100 - Math.Round(min, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi: " + (100 - Math.Round(sum / count, 2)) + "%");
+                Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
-            Console.WriteLine("Naudojamas failas: " + file);
-            Console.WriteLine("Maziausias skirtumas: " + (100 - Math.Round(max, 2)) + "%");
-            Console.WriteLine("Didziausias skirtumas: " + (100 - Math.Round(min, 2)) + "%");
-            Console.WriteLine("Vidutiniskai hashai yra skirtingi: " + (100 - Math.Round(sum / count, 2)) + "%");
+            
 
 
         }
@@ -82,7 +157,7 @@ namespace BlockChainProject
             List<string> lines2 = ReadFile(two);
             List<string> hashedlines1 = new List<string>();
             List<string> hashedlines2 = new List<string>();
-
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             foreach (var item in lines1)
             {
                 List<string> templines = op.Split(item);
@@ -96,8 +171,8 @@ namespace BlockChainProject
                 string temp = op.Hash(templines);
                 hashedlines2.Add(temp);
             }
-
-
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
             List<double> similarities = new List<double>();
             int count = 0;
             for (int i = 0; i < hashedlines1.Count - 1; i++)
@@ -124,12 +199,14 @@ namespace BlockChainProject
             if (similarities.Count==0)
             {
                 Console.WriteLine("Hashai yra visiskai skirtingi hex lygmenyje.");
+                Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
             else
             {
                 Console.WriteLine("Vidutiniskai hashai yra skirtingi: " + (100 - Math.Round(sum / count, 2)) + "%");
                 Console.WriteLine("Maziausias skirtumas: " + (100 - Math.Round(max, 2)) + "%");
                 Console.WriteLine("Didziausias skirtumas: " + (100 - Math.Round(min, 2)) + "%");
+                Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
             
 
