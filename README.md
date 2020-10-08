@@ -133,16 +133,16 @@ Antras failas. **Hash: 4E4DB6721439E4DAA26319FF7869C9679D3049439DFB7B300B6044FDC
 - 25 000 porų yra 10 ilgio.
 - 25 000 porų yra 100 ilgio.
 - 25 000 porų yra 500 ilgio.
-- 25 000 porų yra 1000 ilgio.
-Rezultatai:
+- 25 000 porų yra 1000 ilgio.  
+Rezultatai:  
 ![Rezultatai](https://i.imgur.com/U6eVUOe.png)
 
 ## 4. Hashuojamas 100 000 atsitiktinių porų simbolių eilučių failas, tačiau porose skiriasi tik vienas simbolis, kuriame:
 - 25 000 porų yra 10 ilgio.
 - 25 000 porų yra 100 ilgio.
 - 25 000 porų yra 500 ilgio.
-- 25 000 porų yra 1000 ilgio.
-Rezultatai:
+- 25 000 porų yra 1000 ilgio.  
+Rezultatai:  
 ![Rezultatai](https://i.imgur.com/s5XHoC5.png)
 
 ## Išvados
