@@ -3,11 +3,13 @@
 
 ## Paleidimo instrukcijos
 - Atidaryti Developer Command Promt for VS 20**
-- Ieiti i Projekto kataloga BlockChainProject per command promt
+- Ieiti i Projekto kataloga per command promt
 - Ivesti i terminala komandas paeiliui:
 ```
 csc Program.cs Operations.cs
-Program *tekstinio failo pavadinimas*
+Program *pirmojo failo pavadinimas* *antrojo tekstinio failo pavadinimas*
+ARBA
+Program *vienintelio tekstinio failo pavadinimas
 ```
 
 ## Hashavimo algoritmo pseudo-kodas.
@@ -150,6 +152,17 @@ Rezultatai:
 - 25 000 porų yra 1000 ilgio.  
 Rezultatai:  
 ![Rezultatai](https://i.imgur.com/s5XHoC5.png)
+
+## 5. Hashavimo algoritmo palyginimas su populiaru MD5 algoritmu
+
+Testuoti buvo naudojami 3. ir 4. punktuose naudojami duomenų failai.  
+Pasirinktas būtent MD5 algoritmas, todėl kad jis yra šiek tiek paprastesnis nei SHA256, išvedamas mažesnis simbolių kiekis bei algoritmas yra visiškai kitokio tipo nei mano sukūrtasis.  
+Matuojama tik dviejų po 100 000 žodžių turinčių failų greitaveika, kadangi vieno žodio arba vieno simbolio hashavimas yra visiškai skirtingas, laikai bus panašūs, o išvesto rezultato dydis bus visiškai kitoks.  
+Rezultatai:  
+### Su 3. punkto duomenų failu:  
+![Rezultatai](https://i.imgur.com/fngLWch.png)
+### Su 4. punkto duomenų failu:  
+![Rezultatai](https://i.imgur.com/fKW98br.png)
 
 ## Išvados
 - Algoritmas nėra labai greitas

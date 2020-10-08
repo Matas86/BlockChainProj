@@ -77,8 +77,40 @@ namespace BlockChainProject
                 List<string> lines = ReadFileToWords(file);
                 List<string> hashedlines = new List<string>();
                 List<string> binarylines = new List<string>();
+
+
+                //MD5 hash
                 var watch = System.Diagnostics.Stopwatch.StartNew();
+                foreach (var item in lines)
+                {
+                    hashedlines.Add(op.TextToMD5(item));
+                }
+                var elapsedMsMD = watch.ElapsedMilliseconds;
+
+                //checking similarities of MD5 in hex
+                List<double> similarities = new List<double>();
+
+                int countMD = 0;
+                for (int i = 0; i < hashedlines.Count - 2; i += 2)
+                {
+                    similarities.Add(op.CheckSimilarity(hashedlines[i], hashedlines[i + 1]));
+                    countMD++;
+
+                }
+                double sumMD = 0;
+                double minMD = 100;
+                double maxMD = 0;
+                for (int i = 0; i < similarities.Count; i++)
+                {
+                    sumMD += similarities[i];
+                    if (minMD > similarities[i]) minMD = similarities[i];
+                    if (maxMD < similarities[i]) maxMD = similarities[i];
+                }
+
+
                 //starting to hash
+                hashedlines.Clear();
+                watch = System.Diagnostics.Stopwatch.StartNew();
                 foreach (var item in lines)
                 {
                     List<string> templines = op.Split(item);
@@ -92,7 +124,7 @@ namespace BlockChainProject
 
 
                 //checking similiarities
-                List<double> similarities = new List<double>();
+                similarities.Clear();
                 int count = 0;
                 for (int i = 0; i < hashedlines.Count - 2; i += 2)
                 {
@@ -134,6 +166,7 @@ namespace BlockChainProject
                 //output results
                 Console.WriteLine("Naudojamas failas: " + file);
                 Console.WriteLine("");
+                Console.WriteLine("Hashavimas mano algoritmu");
                 Console.WriteLine("Maziausias skirtumas hex lygmeny: " + (100 - Math.Round(max, 2)) + "%");
                 Console.WriteLine("Didziausias skirtumas hex lygmeny: " + (100 - Math.Round(min, 2)) + "%");
                 Console.WriteLine("Vidutiniskai hashai yra skirtingi hex lygmeny: " + (100 - Math.Round(sum / count, 2)) + "%");
@@ -144,6 +177,15 @@ namespace BlockChainProject
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
+
+                //Hashavimas MD5 algoritmu
+                Console.WriteLine("");
+                Console.WriteLine("Hashavimas MD5 algoritmu");
+                Console.WriteLine("Maziausias skirtumas hex lygmeny: " + (100 - Math.Round(maxMD, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas hex lygmeny: " + (100 - Math.Round(minMD, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi hex lygmeny: " + (100 - Math.Round(sumMD / countMD, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("Hashavimas uztruko: " + elapsedMsMD + " milisekundziu");
             }
             else if (choice == "2")
             {

@@ -1,12 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BlockChainProject
 {
     public class Operations
     {
+        //MD5 operations
+
+        public string TextToMD5(string input)
+        {
+            //Sukurti kodavimo objecta.
+            var md5 = new MD5CryptoServiceProvider();
+            //Konvertuoti teksta i baitu masyva
+            byte[] inBytes = Encoding.UTF8.GetBytes(input);
+            //Paskaiciuoti hasha
+            byte[] OutBytes = md5.ComputeHash(inBytes);
+            // Konvertuoti i teksta
+            StringBuilder output = new StringBuilder();
+            foreach (var item in OutBytes)
+            {
+                output.Append(item.ToString("X2"));
+            }
+            // grazinti reiksme
+            return output.ToString();
+        }
+
         //constants
         double c1 = Math.Sqrt(2) * Math.Pow(2, 32);
         double c2 = Math.Sqrt(3) * Math.Pow(2, 32);
