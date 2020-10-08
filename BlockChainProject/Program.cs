@@ -10,6 +10,7 @@ namespace BlockChainProject
     public class Program
     {
         Operations op = new Operations();
+        //reads one file of one word in each line
         public List<string> ReadFile(string file)
         {
             List<string> text = new List<string>();
@@ -33,6 +34,7 @@ namespace BlockChainProject
             }
             return text;
         }
+        //reads one file with two words in each line
         public List<string> ReadFileToWords(string file)
         {
             List<string> text = new List<string>();
@@ -68,27 +70,35 @@ namespace BlockChainProject
             Console.WriteLine("Jei norite hashuoti kiekviena failo eilute, pasirinkite 2.");
             string choice;
             choice = Console.ReadLine();
+
             if (choice == "1")
             {
                 Console.WriteLine("Pradedamas vieno failo hashavimas.");
                 List<string> lines = ReadFileToWords(file);
                 List<string> hashedlines = new List<string>();
+                List<string> binarylines = new List<string>();
                 var watch = System.Diagnostics.Stopwatch.StartNew();
+                //starting to hash
                 foreach (var item in lines)
                 {
                     List<string> templines = op.Split(item);
                     string temp = op.Hash(templines);
-                    hashedlines.Add(temp);
+                    binarylines.Add(temp);
+                    hashedlines.Add(op.BinaryStringToHexString(temp));
                 }
                 watch.Stop();
                 var elapsedMs = watch.ElapsedMilliseconds;
+                //hashing ended
+
+
+                //checking similiarities
                 List<double> similarities = new List<double>();
                 int count = 0;
-                for (int i = 0; i < hashedlines.Count - 2; i+=2)
+                for (int i = 0; i < hashedlines.Count - 2; i += 2)
                 {
                     similarities.Add(op.CheckSimilarity(hashedlines[i], hashedlines[i + 1]));
                     count++;
-                    
+
                 }
                 double sum = 0;
                 double min = 100;
@@ -99,10 +109,40 @@ namespace BlockChainProject
                     if (min > similarities[i]) min = similarities[i];
                     if (max < similarities[i]) max = similarities[i];
                 }
+
+                //starting to check similarties in binary
+                similarities.Clear();
+                int countbi = 0;
+                for (int i = 0; i < binarylines.Count - 2; i += 2)
+                {
+
+                    similarities.Add(op.CheckSimilarityBi(binarylines[i], binarylines[i + 1]));
+                    countbi++;
+
+                }
+
+                double sumbi = 0;
+                double minbi = 100;
+                double maxbi = 0;
+                for (int i = 0; i < similarities.Count; i++)
+                {
+                    sumbi += similarities[i];
+                    if (minbi > similarities[i]) minbi = similarities[i];
+                    if (maxbi < similarities[i]) maxbi = similarities[i];
+                }
+
+                //output results
                 Console.WriteLine("Naudojamas failas: " + file);
-                Console.WriteLine("Maziausias skirtumas: " + (100 - Math.Round(max, 2)) + "%");
-                Console.WriteLine("Didziausias skirtumas: " + (100 - Math.Round(min, 2)) + "%");
-                Console.WriteLine("Vidutiniskai hashai yra skirtingi: " + (100 - Math.Round(sum / count, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("Maziausias skirtumas hex lygmeny: " + (100 - Math.Round(max, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas hex lygmeny: " + (100 - Math.Round(min, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi hex lygmeny: " + (100 - Math.Round(sum / count, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("Maziausias skirtumas binary lygmeny: " + (100 - Math.Round(maxbi, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas binary lygmeny: " + (100 - Math.Round(minbi, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi binary lygmeny: " + (100 - Math.Round(sumbi / countbi, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("");
                 Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
             else if (choice == "2")
@@ -110,15 +150,20 @@ namespace BlockChainProject
                 Console.WriteLine("Pradedamas vieno failo hashavimas.");
                 List<string> lines = ReadFile(file);
                 List<string> hashedlines = new List<string>();
+                List<string> binarylines = new List<string>();
                 var watch = System.Diagnostics.Stopwatch.StartNew();
+                //starting to hash
                 foreach (var item in lines)
                 {
                     List<string> templines = op.Split(item);
                     string temp = op.Hash(templines);
-                    hashedlines.Add(temp);
+                    binarylines.Add(temp);
+                    hashedlines.Add(op.BinaryStringToHexString(temp));
                 }
                 watch.Stop();
                 var elapsedMs = watch.ElapsedMilliseconds;
+
+                //starting to check similarities in hex
                 List<double> similarities = new List<double>();
                 int count = 0;
                 for (int i = 0; i < hashedlines.Count - 1; i++)
@@ -138,13 +183,44 @@ namespace BlockChainProject
                     if (min > similarities[i]) min = similarities[i];
                     if (max < similarities[i]) max = similarities[i];
                 }
+
+                //starting to check similarties in binary
+                similarities.Clear();
+                int countbi = 0;
+                for (int i = 0; i < binarylines.Count - 1; i++)
+                {
+                    for (int j = i + 1; j < binarylines.Count; j++)
+                    {
+                        similarities.Add(op.CheckSimilarityBi(binarylines[i], binarylines[j]));
+                        countbi++;
+                    }
+                }
+
+                double sumbi = 0;
+                double minbi = 100;
+                double maxbi = 0;
+                for (int i = 0; i < similarities.Count; i++)
+                {
+                    sumbi += similarities[i];
+                    if (minbi > similarities[i]) minbi = similarities[i];
+                    if (maxbi < similarities[i]) maxbi = similarities[i];
+                }
+
+                //output results
                 Console.WriteLine("Naudojamas failas: " + file);
-                Console.WriteLine("Maziausias skirtumas: " + (100 - Math.Round(max, 2)) + "%");
-                Console.WriteLine("Didziausias skirtumas: " + (100 - Math.Round(min, 2)) + "%");
-                Console.WriteLine("Vidutiniskai hashai yra skirtingi: " + (100 - Math.Round(sum / count, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("Maziausias skirtumas hex lygmeny: " + (100 - Math.Round(max, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas hex lygmeny: " + (100 - Math.Round(min, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi hex lygmeny: " + (100 - Math.Round(sum / count, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("Maziausias skirtumas binary lygmeny: " + (100 - Math.Round(maxbi, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas binary lygmeny: " + (100 - Math.Round(minbi, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi binary lygmeny: " + (100 - Math.Round(sumbi / countbi, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("");
                 Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
-            
+
 
 
         }
@@ -157,22 +233,30 @@ namespace BlockChainProject
             List<string> lines2 = ReadFile(two);
             List<string> hashedlines1 = new List<string>();
             List<string> hashedlines2 = new List<string>();
+            List<string> binarylines1 = new List<string>();
+            List<string> binarylines2 = new List<string>();
             var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            //starting to hash
             foreach (var item in lines1)
             {
                 List<string> templines = op.Split(item);
                 string temp = op.Hash(templines);
-                hashedlines1.Add(temp);
+                binarylines1.Add(temp);
+                hashedlines1.Add(op.BinaryStringToHexString(temp));
             }
 
             foreach (var item in lines2)
             {
                 List<string> templines = op.Split(item);
                 string temp = op.Hash(templines);
-                hashedlines2.Add(temp);
+                binarylines2.Add(temp);
+                hashedlines2.Add(op.BinaryStringToHexString(temp));
             }
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
+
+            //checking similarities
             List<double> similarities = new List<double>();
             int count = 0;
             for (int i = 0; i < hashedlines1.Count - 1; i++)
@@ -193,12 +277,55 @@ namespace BlockChainProject
                 if (max < similarities[i]) max = similarities[i];
             }
 
+            //starting to check similarties in binary
+            similarities.Clear();
+            int countbi = 0;
+            for (int i = 0; i < binarylines1.Count - 1; i++)
+            {
+
+                similarities.Add(op.CheckSimilarityBi(binarylines1[i], binarylines2[i]));
+                countbi++;
+
+            }
+
+            double sumbi = 0;
+            double minbi = 100;
+            double maxbi = 0;
+            for (int i = 0; i < similarities.Count; i++)
+            {
+                sumbi += similarities[i];
+                if (minbi > similarities[i]) minbi = similarities[i];
+                if (maxbi < similarities[i]) maxbi = similarities[i];
+            }
+
+            //output result
             Console.WriteLine("Naudojamas failas pirmas: " + one);
             Console.WriteLine("Naudojamas failas antras: " + two);
-            
-            if (similarities.Count==0)
+
+            if (sum == 0 && sumbi == 0)
+            {
+                Console.WriteLine("Hashai yra visiskai skirtingi hex ir binary lygmenyje.");
+                Console.WriteLine("");
+                Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
+            }
+            else if(sum == 0)
             {
                 Console.WriteLine("Hashai yra visiskai skirtingi hex lygmenyje.");
+                Console.WriteLine("");
+                Console.WriteLine("Maziausias skirtumas binary lygmeny: " + (100 - Math.Round(maxbi, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas binary lygmeny: " + (100 - Math.Round(minbi, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi binary lygmeny: " + (100 - Math.Round(sumbi / countbi, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
+            }
+            else if(sumbi == 0)
+            {
+                Console.WriteLine("Hashai yra visiskai skirtingi binary lygmenyje.");
+                Console.WriteLine("");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi hex lygmenyje: " + (100 - Math.Round(sum / count, 2)) + "%");
+                Console.WriteLine("Maziausias skirtumas hex lygmenyje: " + (100 - Math.Round(max, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas hex lygmenyje: " + (100 - Math.Round(min, 2)) + "%");
+                Console.WriteLine("");
                 Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
             else
@@ -206,32 +333,54 @@ namespace BlockChainProject
                 Console.WriteLine("Vidutiniskai hashai yra skirtingi: " + (100 - Math.Round(sum / count, 2)) + "%");
                 Console.WriteLine("Maziausias skirtumas: " + (100 - Math.Round(max, 2)) + "%");
                 Console.WriteLine("Didziausias skirtumas: " + (100 - Math.Round(min, 2)) + "%");
+                Console.WriteLine("");
+                Console.WriteLine("Maziausias skirtumas binary lygmeny: " + (100 - Math.Round(maxbi, 2)) + "%");
+                Console.WriteLine("Didziausias skirtumas binary lygmeny: " + (100 - Math.Round(minbi, 2)) + "%");
+                Console.WriteLine("Vidutiniskai hashai yra skirtingi binary lygmeny: " + (100 - Math.Round(sumbi / countbi, 2)) + "%");
+                Console.WriteLine("");
                 Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
-            
+
 
         }
         static void Main(string[] args)
         {
+
             Program start = new Program();
             if (args.Length == 1)
             {
                 start.Hashuok(args[0]);
             }
-            else if(args.Length == 2)
+            else if (args.Length == 2)
             {
-                start.Hashuok(args[0],args[1]);
+                start.Hashuok(args[0], args[1]);
             }
             else
             {
-                Console.WriteLine("Iveskite dvieju failu pavadinimus.");
-                Console.WriteLine("1. ");
-                string filename = Console.ReadLine();
-                Console.WriteLine("2. ");
-                string filename2 = Console.ReadLine();
-                start.Hashuok(filename, filename2);
+                string choice = "";
+                Console.WriteLine("Ar norite hashuoti viena faila ar du?");
+                Console.WriteLine("Iveskite 1, jei norite hashuoti viena faila.");
+                Console.WriteLine("Iveskite 2, jei norite hashuoti du failus.");
+                choice = Console.ReadLine();
+                if (choice == "1")
+                {
+                    string filename = "";
+                    Console.WriteLine("Iveskite failo pavadinima");
+                    filename = Console.ReadLine();
+                    start.Hashuok(filename);
+                }
+                else
+                {
+                    Console.WriteLine("Iveskite dvieju failu pavadinimus.");
+                    Console.WriteLine("1. ");
+                    string filename = Console.ReadLine();
+                    Console.WriteLine("2. ");
+                    string filename2 = Console.ReadLine();
+                    start.Hashuok(filename, filename2);
+                }
             }
-            //start.Hashuok();
+
+
         }
 
 

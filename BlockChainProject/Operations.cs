@@ -105,6 +105,19 @@ namespace BlockChainProject
             return (sum / 144 * 100);
         }
 
+        public double CheckSimilarityBi(string a, string b)
+        {
+            double sum = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] == b[i])
+                {
+                    sum++;
+                }
+            }
+            return (sum / 512 * 100);
+        }
+
         public List<string> Split(string a)
         {
             List<string> ats = new List<string>();
@@ -235,6 +248,10 @@ namespace BlockChainProject
         //main operation
         public string Hash(List<string> a)
         {
+            if (a.Count == 0)
+            {
+                a.Add(ConvertToBytes(""));
+            }
             string ats = "";
             string T1 = "";
             string T2 = "";
@@ -342,7 +359,7 @@ namespace BlockChainProject
             ats += T7;
             ats += T8;
 
-            ats = BinaryStringToHexString(ats);
+            //ats = BinaryStringToHexString(ats);
 
 
             return ats;
