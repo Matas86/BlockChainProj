@@ -156,10 +156,11 @@ namespace BlockChainProject
             if (a.Length < 64 && a.Length >0)
             {
                 StringBuilder strB = new StringBuilder(a);
-                for (int j = 0; j < 64 - a.Length; j++)
+                for (int j = 0; j < 64 - a.Length - 8; j++)
                 {
                     strB.Append(0);
                 }
+                for (int j = 0; j < 8; j++) strB.Append(1);
                 ats.Add(strB.ToString());
             }
 
@@ -195,6 +196,7 @@ namespace BlockChainProject
         }
         public string ConvertToBytes(string a)
         {
+            if (a == "") a = " ";
             byte[] test = Encoding.UTF8.GetBytes(a);
             string yourByteString = "";
             foreach (var item in test)
@@ -271,7 +273,7 @@ namespace BlockChainProject
         {
             if (a.Count == 0)
             {
-                a.Add(ConvertToBytes(""));
+                a.Add(ConvertToBytes(" "));
             }
             string ats = "";
             string T1 = "";

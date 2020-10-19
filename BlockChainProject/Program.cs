@@ -111,6 +111,10 @@ namespace BlockChainProject
                 //starting to hash
                 hashedlines.Clear();
                 watch = System.Diagnostics.Stopwatch.StartNew();
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    lines[i] = op.ConvertToBytes(lines[i]);
+                }
                 foreach (var item in lines)
                 {
                     List<string> templines = op.Split(item);
@@ -195,13 +199,26 @@ namespace BlockChainProject
                 List<string> binarylines = new List<string>();
                 var watch = System.Diagnostics.Stopwatch.StartNew();
                 //starting to hash
+                if (lines.Count == 0)
+                {
+                    lines.Add(" ");
+                }
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    lines[i] = op.ConvertToBytes(lines[i]);
+                }
                 foreach (var item in lines)
                 {
+
                     List<string> templines = op.Split(item);
+                    
                     string temp = op.Hash(templines);
                     binarylines.Add(temp);
                     hashedlines.Add(op.BinaryStringToHexString(temp));
+                    if(lines.Count < 2) Console.WriteLine(op.BinaryStringToHexString(temp).ToString());
                 }
+
+
                 watch.Stop();
                 var elapsedMs = watch.ElapsedMilliseconds;
 
@@ -280,20 +297,29 @@ namespace BlockChainProject
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
             //starting to hash
+            for (int i = 0; i < lines1.Count; i++)
+            {
+                lines1[i] = op.ConvertToBytes(lines1[i]);
+            }
             foreach (var item in lines1)
             {
                 List<string> templines = op.Split(item);
                 string temp = op.Hash(templines);
                 binarylines1.Add(temp);
                 hashedlines1.Add(op.BinaryStringToHexString(temp));
+                if(lines1.Count < 2) Console.WriteLine("File1 : " + op.BinaryStringToHexString(temp).ToString());
             }
-
+            for (int i = 0; i < lines2.Count; i++)
+            {
+                lines2[i] = op.ConvertToBytes(lines2[i]);
+            }
             foreach (var item in lines2)
             {
                 List<string> templines = op.Split(item);
                 string temp = op.Hash(templines);
                 binarylines2.Add(temp);
                 hashedlines2.Add(op.BinaryStringToHexString(temp));
+                if (lines2.Count < 2) Console.WriteLine("File2 : " + op.BinaryStringToHexString(temp).ToString());
             }
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
@@ -350,7 +376,7 @@ namespace BlockChainProject
                 Console.WriteLine("");
                 Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
-            else if(sum == 0)
+            else if (sum == 0)
             {
                 Console.WriteLine("Hashai yra visiskai skirtingi hex lygmenyje.");
                 Console.WriteLine("");
@@ -360,7 +386,7 @@ namespace BlockChainProject
                 Console.WriteLine("");
                 Console.WriteLine("Hashavimas uztruko: " + elapsedMs + " milisekundziu");
             }
-            else if(sumbi == 0)
+            else if (sumbi == 0)
             {
                 Console.WriteLine("Hashai yra visiskai skirtingi binary lygmenyje.");
                 Console.WriteLine("");
