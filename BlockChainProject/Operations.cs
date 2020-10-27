@@ -160,7 +160,7 @@ namespace BlockChainProject
             int col = 0;
             for (int i = 0; i < hashedlines1.Count; i++)
             {
-                if (hashedlines1[i]==hashedlines2[i])
+                if (hashedlines1[i] == hashedlines2[i])
                 {
                     col++;
                 }
@@ -170,8 +170,35 @@ namespace BlockChainProject
         public List<string> Split(string a)
         {
             List<string> ats = new List<string>();
+            StringBuilder str = new StringBuilder(a);
             int length = a.Length;
-
+            string bitlength = Convert.ToString(length, 2);
+            //padding
+            if (str.Length > 64 && str.Length % 64 == 0)
+            {
+                str.Append("1");
+                for (int i = 1; i < 64 - bitlength.Length; i++)
+                {
+                    str.Append("0");
+                }
+                str.Append(bitlength);
+            }
+            else
+            {
+                str.Append("1");
+                int temp = str.Length % 64;
+                for (int i = 0; i < (64 - temp); i++)
+                {
+                    str.Append("0");
+                }
+                for (int i = 0; i < 64 - bitlength.Length; i++)
+                {
+                    str.Append("0");
+                }
+                str.Append(bitlength);
+            }
+            a = str.ToString();
+            length = a.Length;
             if (length >= 64)
             {
                 while (a.Length >= 64)
@@ -180,20 +207,6 @@ namespace BlockChainProject
                     a = a.Remove(0, 64);
                 }
             }
-
-            if (a.Length < 64 && a.Length > 0)
-            {
-                StringBuilder strB = new StringBuilder(a);
-                for (int j = 0; j < 64 - a.Length - 8; j++)
-                {
-                    strB.Append(0);
-                }
-                //for (int j = 0; j < 8; j++) strB.Append(1);
-                strB.Append(ConvertToBytes((a.Length % 10).ToString()));
-                ats.Add(strB.ToString());
-            }
-
-
             return ats;
 
         }
@@ -223,6 +236,7 @@ namespace BlockChainProject
 
             return result.ToString();
         }
+
         public string ConvertToBytes(string a)
         {
             if (a == "") a = " ";
@@ -254,6 +268,29 @@ namespace BlockChainProject
                     c += "0";
                 }
             }
+            return c;
+        }
+        public string IFOR(string a, string b)
+        {
+            string c = "";
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] == b[i] && a[i] == '1')
+                {
+                    c += '0';
+                }
+                else if (a[i] == b[i] && a[i] == '0')
+                {
+                    c += '1';
+                }
+                else
+                {
+                    c += a[i];
+                }
+            }
+
+
+
             return c;
         }
 
@@ -354,6 +391,7 @@ namespace BlockChainProject
 
                 T7 = XOR(T7, a[i]);
                 T7 = XOR(T7, ConvertConstantc7());
+  
                 T7 = ROTR(T7, 18);
                 T7 = SHR(T7, 6);
 

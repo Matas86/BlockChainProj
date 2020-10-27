@@ -264,7 +264,6 @@ namespace BlockChainProject
                     if (minbi > similarities[i]) minbi = similarities[i];
                     if (maxbi < similarities[i]) maxbi = similarities[i];
                 }
-
                 //output results
                 Console.WriteLine("Naudojamas failas: " + file);
                 Console.WriteLine("");
