@@ -123,7 +123,7 @@ namespace BlockChainProject
                     sum++;
                 }
             }
-            return (sum / 144 * 100);
+            return (sum / 128 * 100);
         }
 
         public double CheckSimilarityBi(string a, string b)
@@ -139,6 +139,34 @@ namespace BlockChainProject
             return (sum / 512 * 100);
         }
 
+        public int CheckColision(List<string> hashedlines)
+        {
+            int col = 0;
+            for (int i = 0; i < hashedlines.Count - 1; i++)
+            {
+                for (int j = i + 1; j < hashedlines.Count; j++)
+                {
+                    if (hashedlines[i] == hashedlines[j])
+                    {
+                        col++;
+                    }
+                }
+            }
+            return col;
+        }
+
+        public int CheckColisionPairs(List<string> hashedlines1, List<string> hashedlines2)
+        {
+            int col = 0;
+            for (int i = 0; i < hashedlines1.Count; i++)
+            {
+                if (hashedlines1[i]==hashedlines2[i])
+                {
+                    col++;
+                }
+            }
+            return col;
+        }
         public List<string> Split(string a)
         {
             List<string> ats = new List<string>();
@@ -146,21 +174,22 @@ namespace BlockChainProject
 
             if (length >= 64)
             {
-                while (a.Length >=64)
+                while (a.Length >= 64)
                 {
                     ats.Add(a.Substring(0, 64));
                     a = a.Remove(0, 64);
                 }
             }
 
-            if (a.Length < 64 && a.Length >0)
+            if (a.Length < 64 && a.Length > 0)
             {
                 StringBuilder strB = new StringBuilder(a);
                 for (int j = 0; j < 64 - a.Length - 8; j++)
                 {
                     strB.Append(0);
                 }
-                for (int j = 0; j < 8; j++) strB.Append(1);
+                //for (int j = 0; j < 8; j++) strB.Append(1);
+                strB.Append(ConvertToBytes((a.Length % 10).ToString()));
                 ats.Add(strB.ToString());
             }
 
@@ -231,17 +260,20 @@ namespace BlockChainProject
         public string ROTR(string a, int amount)
         {
             StringBuilder strB = new StringBuilder(a);
-
-            for (int i = 0; i < amount; i++)
+            if (a.Length != 0)
             {
-                strB.Append(strB[strB.Length - 1]);
-                for (int j = 0; j < strB.Length - 1; j++)
+                for (int i = 0; i < amount; i++)
                 {
-                    strB[strB.Length - 1 - j] = strB[strB.Length - 2 - j];
+                    strB.Append(strB[strB.Length - 1]);
+                    for (int j = 0; j < strB.Length - 1; j++)
+                    {
+                        strB[strB.Length - 1 - j] = strB[strB.Length - 2 - j];
+                    }
+                    strB[0] = strB[strB.Length - 1];
+                    strB.Remove(strB.Length - 1, 1);
                 }
-                strB[0] = strB[strB.Length - 1];
-                strB.Remove(strB.Length - 1, 1);
             }
+
 
             return strB.ToString();
 
@@ -250,19 +282,22 @@ namespace BlockChainProject
         public string SHR(string a, int amount)
         {
             StringBuilder strB = new StringBuilder(a);
-
-            strB.Append(strB[strB.Length - 1]);
-
-            for (int i = 0; i < amount; i++)
+            if (a.Length != 0)
             {
-                for (int j = 0; j < strB.Length - 1; j++)
+                strB.Append(strB[strB.Length - 1]);
+
+                for (int i = 0; i < amount; i++)
                 {
-                    strB[strB.Length - 1 - j] = strB[strB.Length - 2 - j];
+                    for (int j = 0; j < strB.Length - 1; j++)
+                    {
+                        strB[strB.Length - 1 - j] = strB[strB.Length - 2 - j];
+                    }
+                    strB[0] = '0';
                 }
-                strB[0] = '0';
+
+                strB.Remove(strB.Length - 1, 1);
             }
 
-            strB.Remove(strB.Length - 1, 1);
 
             return strB.ToString();
         }
@@ -276,53 +311,56 @@ namespace BlockChainProject
                 a.Add(ConvertToBytes(" "));
             }
             string ats = "";
-            string T1 = "";
-            string T2 = "";
-            string T3 = "";
-            string T4 = "";
-            string T5 = "";
-            string T6 = "";
-            string T7 = "";
-            string T8 = "";
+            string T1 = ConvertConstantc1();
+            string T2 = ConvertConstantc2();
+            string T3 = ConvertConstantc3();
+            string T4 = ConvertConstantc4();
+            string T5 = ConvertConstantc5();
+            string T6 = ConvertConstantc6();
+            string T7 = ConvertConstantc7();
+            string T8 = ConvertConstantc8();
             for (int i = 0; i < a.Count; i++)
             {
-
-                T1 = XOR(a[i], ConvertConstantc1());
+                T1 = XOR(T1, a[i]);
+                T1 = XOR(T1, ConvertConstantc1());
                 T1 = ROTR(T1, 10);
-                T1 = ROTR(T1, 25);
+                T1 = ROTR(T1, 23);
                 T1 = SHR(T1, 6);
 
-
-                T2 = XOR(a[i], ConvertConstantc2());
-                T2 = ROTR(T2, 42);
+                T2 = XOR(T2, a[i]);
+                T2 = XOR(T2, ConvertConstantc2());
+                T2 = ROTR(T2, 14);
                 T2 = SHR(T2, 5);
 
-                T3 = XOR(a[i], ConvertConstantc3());
+                T3 = XOR(T3, a[i]);
+                T3 = XOR(T3, ConvertConstantc3());
                 T3 = ROTR(T3, 22);
                 T3 = SHR(T3, 4);
 
-                T4 = XOR(a[i], ConvertConstantc4());
-                T4 = ROTR(T4, 33);
+                T4 = XOR(T4, a[i]);
+                T4 = XOR(T4, ConvertConstantc4());
+                T4 = ROTR(T4, 13);
                 T4 = SHR(T4, 3);
 
-
-                T5 = XOR(a[i], ConvertConstantc5());
-                T5 = ROTR(T5, 18);
+                T5 = XOR(T5, a[i]);
+                T5 = XOR(T5, ConvertConstantc5());
+                T5 = ROTR(T5, 31);
                 T5 = SHR(T5, 8);
 
-
-                T6 = XOR(a[i], ConvertConstantc6());
-                T6 = ROTR(T6, 37);
+                T6 = XOR(T6, a[i]);
+                T6 = XOR(T6, ConvertConstantc6());
+                T6 = ROTR(T6, 23);
                 T6 = SHR(T6, 4);
 
-
-                T7 = XOR(a[i], ConvertConstantc7());
+                T7 = XOR(T7, a[i]);
+                T7 = XOR(T7, ConvertConstantc7());
                 T7 = ROTR(T7, 18);
                 T7 = SHR(T7, 6);
 
-
-                T8 = XOR(a[i], ConvertConstantc8());
-                T8 = ROTR(T8, 29);
+                T8 = XOR(T8, a[i]);
+                T8 = XOR(T8, ConvertConstantc8());
+                T8 = ROTR(T8, 19);
+                T8 = SHR(T8, 6);
 
             }
 

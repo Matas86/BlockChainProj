@@ -242,7 +242,7 @@ namespace BlockChainProject
                     if (min > similarities[i]) min = similarities[i];
                     if (max < similarities[i]) max = similarities[i];
                 }
-
+                int collisions = op.CheckColision(hashedlines);
                 //starting to check similarties in binary
                 similarities.Clear();
                 int countbi = 0;
@@ -271,6 +271,8 @@ namespace BlockChainProject
                 Console.WriteLine("Maziausias skirtumas hex lygmeny: " + (100 - Math.Round(max, 2)) + "%");
                 Console.WriteLine("Didziausias skirtumas hex lygmeny: " + (100 - Math.Round(min, 2)) + "%");
                 Console.WriteLine("Vidutiniskai hashai yra skirtingi hex lygmeny: " + (100 - Math.Round(sum / count, 2)) + "%");
+                Console.WriteLine("Is viso eiluciu uzkoduotu: " + hashedlines.Count);
+                Console.WriteLine("Koliziju hex lygmenyje: " + collisions);
                 Console.WriteLine("");
                 Console.WriteLine("Maziausias skirtumas binary lygmeny: " + (100 - Math.Round(maxbi, 2)) + "%");
                 Console.WriteLine("Didziausias skirtumas binary lygmeny: " + (100 - Math.Round(minbi, 2)) + "%");
