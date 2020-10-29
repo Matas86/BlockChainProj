@@ -113,29 +113,29 @@ RETURN ANSWER;
 
 ## Eksperimentinis tyrimas - analizė
 
-## Hashavimo algoritmas grąžina 144 simbolių ilgio žodį.
+## Hashavimo algoritmas grąžina 32 simbolių ilgio žodį.
 
 ## 1. Sukūrtos 4 failų kategorijos:
 - 1.1. Du failai sudaryti iš vieno, tačiau skirtingo simbolio  
 Failas su simboliu A.  
-**Hash: 91B2029EA434087E95BCD3B18961551CB58EC382F21BC0AE3CBF81BB9F5249EA672749B24CA887AE0DD7AB8422E62B505598AC0633AD5046172A7F93A5824452**  
+**Hash: 7FC56270E7A70FA81A5935B72EACBE29**  
 Failas su simboliu B.  
-**Hash: B13302DEA024587AB5BDD3F381650618B50BC3C3FE1F13AA1CBE81F9D34618EE47A649F000A855AA2D53AB866AF6AB58549DACC53FA9014A176E6F91A582465A**  
+**Hash: 3A3EA00CFC35332CEDF6E5E9A32E94DA**  
 - 1.2. Du failai sudaryti iš daugiau nei 1000 atsitiktinai sugeneruotų simbolių  
 Pirmas failas.  
-**Hash: 035254C1B17D9A635739DD158E32456385B77B4E53FA23E92061A8D294C4A201553837AC1C3AF63BD7D273B60721AD30A880ADE60D1F551B734209490A50AA70**  
+**Hash: 0A2CFBD452B48991B91272233EF56C32**  
 Antras failas.  
-**Hash: 17F1ACA3673DAD37478195B89082A763427F334D752EA39FFCCAF68409DDB2EBEE63F470F0B62C1CF095B3E8F21EEE7581F00AE849EC20DDEB3C8CD8D3ACD7CE**  
+**Hash: 68A9C75FDFA3C10251D0486590E1E18B**  
 - 1.3. Du failai sudaryti iš daugiau nei 1000 atsitiktinai sugeneruotų simbolių, tačiau tarp jų skiriasi tik vienas simbolis.  
 Pirmas failas.  
-**Hash: D92B81F732A11EE84A604054FFDEF23EE175204E06B66D2841E1F6BD1A83E076C1C1F29352721CA2A0EA738FB443F51E53281CE42425252F61D519F819DED9F4**  
+**Hash: CF0DC0BB8E6D6EA99E03C328563D6F87**  
 Antras failas.  
-**Hash: 4E4DB6721439E4DAA26319FF7869C9679D3049439DFB7B300B6044FDC2217511B8D88CF70C36EB8A12B6DA2DD20BF2374559B147C3DB95FA1F86043325FC1A5F**  
+**Hash: 791C00FD665040800D710E4D3AC479D1**  
 - 1.4 Failas iš 0 simbolių (Tuščias failas).  
-**Hash: 958A448EC4B79C1C9DA49591CB07E9BEB9D7858A11715C0F34A7C79DADB0C5C8631F0F947FA3034C0996ABB2716E0B914DA1E61E50CBDCA5115AFBA325827410**
+**Hash: D41D8CD98F00B204E9800998ECF8427E**
 
 ## 2. Hashuojamas tekstinis failas konstitucija.txt
-![Rezultatai](https://i.imgur.com/9HAdLIp.png)
+![Rezultatai](https://i.imgur.com/gAyECAS.png)
 
 ## 3. Hashuojamas 100 000 atsitiktinių simbolių eilučių failas, kuriame:
 - 25 000 porų yra 10 ilgio.
@@ -160,9 +160,9 @@ Pasirinktas būtent MD5 algoritmas, todėl kad jis yra šiek tiek paprastesnis n
 Matuojama tik dviejų po 100 000 žodžių turinčių failų greitaveika, kadangi vieno žodio arba vieno simbolio hashavimas yra visiškai skirtingas, laikai bus panašūs, o išvesto rezultato dydis bus visiškai kitoks.  
 Rezultatai:  
 ### Su 3. punkto duomenų failu:  
-![Rezultatai](https://i.imgur.com/fngLWch.png)
+![Rezultatai](https://i.imgur.com/qTrPw5H.png)
 ### Su 4. punkto duomenų failu:  
-![Rezultatai](https://i.imgur.com/fKW98br.png)
+![Rezultatai](https://i.imgur.com/qFa1VwR.png)
 
 ## Išvados
 - Algoritmas nėra labai greitas
