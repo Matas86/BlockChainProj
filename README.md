@@ -143,7 +143,7 @@ Antras failas.
 - 25 000 porų yra 500 ilgio.
 - 25 000 porų yra 1000 ilgio.  
 Rezultatai:  
-![Rezultatai](https://i.imgur.com/7v6O3j5.png)
+![Rezultatai](https://i.imgur.com/Dxspbdc.png)
 
 ## 4. Hashuojamas 100 000 atsitiktinių porų simbolių eilučių failas, tačiau porose skiriasi tik vienas simbolis, kuriame:
 - 25 000 porų yra 10 ilgio.
@@ -151,7 +151,7 @@ Rezultatai:
 - 25 000 porų yra 500 ilgio.
 - 25 000 porų yra 1000 ilgio.  
 Rezultatai:  
-![Rezultatai](https://i.imgur.com/U8stOro.png)
+![Rezultatai](https://i.imgur.com/uWywANC.png)
 
 ## 5. Hashavimo algoritmo palyginimas su populiaru MD5 algoritmu
 
@@ -160,13 +160,13 @@ Pasirinktas būtent MD5 algoritmas, todėl kad jis yra šiek tiek paprastesnis n
 Matuojama tik dviejų po 100 000 žodžių turinčių failų greitaveika, kadangi vieno žodio arba vieno simbolio hashavimas yra visiškai skirtingas, laikai bus panašūs, o išvesto rezultato dydis bus visiškai kitoks.  
 Rezultatai:  
 ### Su 3. punkto duomenų failu:  
-![Rezultatai](https://i.imgur.com/qTrPw5H.png)
+![Rezultatai](https://i.imgur.com/i80tfJ2.png)
 ### Su 4. punkto duomenų failu:  
-![Rezultatai](https://i.imgur.com/qFa1VwR.png)
+![Rezultatai](https://i.imgur.com/W9NlHR3.png)
 
 ## Išvados
 - Algoritmas nėra labai greitas
 - Pasirinkus C# programavimo kalbą, nebuvo apsvarstyta, jog nėra "pointers", todėl algoritmas gana lėtai veikia
 - Kuo panašesni hashuojami žodžiai, tuo panašesnis rezultatas.
 - Algoritmas yra dar vis tobulinamas
-- Naudojama kompresija, išvedamas 144 simbolių rezultatas.
+- Naudojama kompresija, išvedamas 32 simbolių rezultatas.
