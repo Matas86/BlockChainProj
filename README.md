@@ -143,7 +143,7 @@ Antras failas.
 - 25 000 porų yra 500 ilgio.
 - 25 000 porų yra 1000 ilgio.  
 Rezultatai:  
-![Rezultatai](https://i.imgur.com/U6eVUOe.png)
+![Rezultatai](https://i.imgur.com/7v6O3j5.png)
 
 ## 4. Hashuojamas 100 000 atsitiktinių porų simbolių eilučių failas, tačiau porose skiriasi tik vienas simbolis, kuriame:
 - 25 000 porų yra 10 ilgio.
@@ -151,7 +151,7 @@ Rezultatai:
 - 25 000 porų yra 500 ilgio.
 - 25 000 porų yra 1000 ilgio.  
 Rezultatai:  
-![Rezultatai](https://i.imgur.com/s5XHoC5.png)
+![Rezultatai](https://i.imgur.com/U8stOro.png)
 
 ## 5. Hashavimo algoritmo palyginimas su populiaru MD5 algoritmu
 
